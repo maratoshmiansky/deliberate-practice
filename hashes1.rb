@@ -1,7 +1,7 @@
 #1
 # The following hash table represents a particular person: { first_name: "Ada", last_name: "Lovelace", email: "ada.lovelace@email.com" }
 # Write a function that accepts this type of hash table and returns the person's email address.
- 
+
 # Example:
 # Input: { first_name: "Ada", last_name: "Lovelace", email: "ada.lovelace@email.com" }
 # Output: "ada.lovelace@email.com"
@@ -67,3 +67,35 @@ end
 
 p add_10_shirts_to_each_shirt({ red: 500, blue: 615, green: 484, yellow: 332 })  # => { :red=>510, :blue=>625, :green=>494, :yellow=>342 }
 
+#7
+# The following array represents a bad attempt at storing data of U.S. states and their capitals:
+# ["Illinois", "Springfield", "New York", "Albany", "Hawaii", "Honolulu", "Colorado": "Denver", "Idaho", "Boise"]
+# Write a function that accepts an array in this format and returns the same data as a proper hash table, like this:
+# {"Illinois"=>"Springfield", "New York"=>"Albany", "Hawaii"=>"Honolulu", "Colorado"=>"Denver", "Idaho"=>"Boise"}
+
+def states_to_hash(states)
+  states_hash = {}
+  index = 0
+  while index < states.length - 1
+    states_hash[states[index]] = states[index + 1]
+    index += 2
+  end
+  states_hash
+end
+
+p states_to_hash(["Illinois", "Springfield", "New York", "Albany", "Hawaii", "Honolulu", "Colorado", "Denver", "Idaho", "Boise"])  # => {"Illinois"=>"Springfield", "New York"=>"Albany", "Hawaii"=>"Honolulu", "Colorado"=>"Denver", "Idaho"=>"Boise"}
+
+#8
+# The following array contains a record of each vote for a particular political candidate. Each string represents a vote. For example: ["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez", "Johnson"]
+# Write a function that accepts an array like this and returns a hash table showing how many votes each candidate received, like this:
+# {"Gutierrez": 3, "Johnson": 5}
+
+def number_of_votes(votes)
+  tally = {}
+  votes.each do |name|
+    tally[name] ? tally[name] += 1 : tally[name] = 1
+  end
+  tally
+end
+
+p number_of_votes(["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez", "Johnson"])  # => {"Gutierrez"=>3, "Johnson"=>5}
