@@ -80,3 +80,39 @@ def pages_of_Seuss(list)
 end
 
 p pages_of_Seuss(book_list)
+
+#5
+# Write a function that accepts this type of hash table and returns the book with the highest page count.
+# Expected Output: {title: "War and Peace", author: "Leo Tolstoy", pageCount: 1821}
+
+def most_pages(list)
+  list.map { |book| book[:page_count] }.max
+end
+
+p most_pages(book_list)
+
+#6
+# Write a function that accepts this type of hash table and returns an array of strings that contain each book and author in the following format: "Hop on Pop by Dr. Seuss"
+# Expected Output:
+# [
+#   'Hop on Pop by Dr. Seuss',
+#   'Mrs. Dalloway by Virginia Woolf',
+#   "Harry Potter and the Sorcerer's Stone by J. K. Rowling",
+#   'To the Lighthouse by Virginia Woolf',
+#   'Anna Karenina by Leo Tolstoy',
+#   'The Adventures of Tom Sawyer by Mark Twain',
+#   'The Cat in the Hat by Dr. Seuss',
+#   'War and Peace by Leo Tolstoy',
+#   'Green Eggs and Ham by Dr. Seuss',
+#   'The Adventures of Huckleberry Finn by Mark Twain'
+# ]
+
+def titles_by_author(list)
+  book_strings = []
+  list.each do |book|
+    book_strings << "#{book[:title]} by #{book[:author]}"
+  end
+  book_strings
+end
+
+p titles_by_author(book_list)
