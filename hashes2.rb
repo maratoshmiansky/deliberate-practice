@@ -116,3 +116,19 @@ def titles_by_author(list)
 end
 
 p titles_by_author(book_list)
+
+#7
+# Here's an array of strings, with each string representing a vote for a particular political candidate.
+# ["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez"]
+# Write a function that returns a hash table containing the tally of votes for each candidate.
+# Expected Output: {"Gutierrez": 3, "Johnson": 4}
+
+def vote_tally(candidates)
+  tally = {}
+  candidates.each do |candidate|
+    tally[candidate] ? tally[candidate] += 1 : tally[candidate] = 1
+  end
+  tally
+end
+
+p vote_tally(["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez"])
