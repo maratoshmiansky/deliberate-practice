@@ -132,3 +132,18 @@ def vote_tally(candidates)
 end
 
 p vote_tally(["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez"])
+
+#8
+# Extend the previous function to return the winner of the election (that is, the candidate with the most votes).
+# Expected Output: "Johnson"
+
+def winner(candidates)
+  tally = {}
+  candidates.each { |candidate| tally[candidate] ? tally[candidate] += 1 : tally[candidate] = 1 }
+  # tally.key(tally.values.max)  # only returns the first winner
+  win_count = tally.values.max
+  tally.select { |key, value| value == win_count }.keys  # returns an array of winning candidate(s)
+end
+
+p winner(["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez"])
+p winner(["Marat", "Marta", "Marat", "Marta"])
