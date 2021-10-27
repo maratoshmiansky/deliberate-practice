@@ -116,3 +116,28 @@ end
 p char_tally("bookkeeper")  # => {"b" => 1, "o" => 2, "k" => 2, "e" => 3, "p" => 1, "r" => 1}
 p char_tally("maratical")  # => {"m" => 1, "a" => 3, "r" => 1, "t" => 1, "i" => 1, "c" => 1, "l" => 1}
 
+#9
+# Write a function that accepts an array of books and returns a hash table of how many times each author occurs:
+# Input: [ {title: "Great Book", author: "John Smith"}, {title: "1984", author: "George Orwell"}, {title: "Awesome Book", author: "John Smith"} ]
+# Output: {"John Smith" => 2, "George Orwell" => 1}
+
+def author_times(array)
+  tally = {}
+  array.each { |hash| tally[hash[:author]] ? tally[hash[:author]] += 1 : tally[hash[:author]] = 1 }
+  tally
+end
+
+p author_times([{title: "Great Book", author: "John Smith"}, {title: "1984", author: "George Orwell"}, {title: "Awesome Book", author: "John Smith"}])  # => {"John Smith" => 2, "George Orwell" => 1}
+
+#10
+# Write a function that accepts an array of books and returns a hash table where the author is the key, and an array of their book titles are the values
+# Input: [ {title: "Great Book", author: "John Smith"}, {title: "1984", author: "George Orwell"}, {title: "Awesome Book", author: "John Smith"} ]
+# Output: { "John Smith": ["Great Book, "Awesome Book"], "George Orwell": ["1984"] }
+
+def author_titles(array)
+  tally = {}
+  array.each { |hash| tally[hash[:author]] ? tally[hash[:author]] << hash[:title] : tally[hash[:author]] = [hash[:title]] }
+  tally
+end
+
+p author_titles([{title: "Great Book", author: "John Smith"}, {title: "1984", author: "George Orwell"}, {title: "Awesome Book", author: "John Smith"}])  # => {"John Smith" => ["Great Book", "Awesome Book"], "George Orwell" => ["1984"]}
