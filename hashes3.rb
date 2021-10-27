@@ -24,9 +24,7 @@ p hash_to_array({"a" => 1, "b" => 2, "c" => 3, "d" => 4})  # this returns the st
 
 def hash_to_array2(hash)
   array = []
-  hash.each do |key, value|
-    array << [key, value]
-  end
+  hash.each { |key, value| array << [key, value] }
   array
 end
 
@@ -77,4 +75,44 @@ end
 p tally_string_array(["do", "or", "do", "not"])  # => {"do" => 2, "or" => 1, "not" => 1}
 p tally_string_array(["pink", "purple", "yellow", "purple", "yellow", "white", "pink"])  # => {"pink" => 2, "purple" => 2, "yellow" => 2, "white" => 1}
 p tally_string_array("I am the man who is the man who tells a man to man up, man".split(" "))  # => {"I" => 1, "am" => 1, "the" => 2, "man" => 5, "who" => 2, "is" => 1, "tells" => 1, "a" => 1, "to" => 1, "up," => 1}
+
+#6
+# Write a function that accepts an array of products and returns a hash table where the id numbers are the keys, and the products hash tables are the values.
+# Input: [ {id: 1, product: "table", price: 32}, {id: 2, product: "chair", price: 12}, {id: 3, product: "sofa", price: 100} ]
+# Output: {1: {id: 1, product: "table", price: 32}, 2: {id: 2, product: "chair", price: 12}, 3: {id: 2, product: "sofa", price: 100} }
+
+def hash_array_to_hash(array)
+  output_hash = {}
+  array.each { |hash| output_hash[hash[:id]] = hash }
+  output_hash
+end
+
+p hash_array_to_hash([ {id: 1, product: "table", price: 32}, {id: 2, product: "chair", price: 12}, {id: 3, product: "sofa", price: 100} ])  # => {1 => {:id => 1, :product => "table", :price => 32}, 2 => {:id => 2, :product => "chair", :price => 12}, 3 => {:id => 3, :product => "sofa", :price => 100}}
+
+#7
+# Write a function that accepts TWO parameters, an array and a number. The function should return a hash table, where each item in the array is a key, and the number is a value.
+# Inputs: ["a", "e", "i", "o", "u"], 1
+# Output: {"a": 1, "e": 1, "i": 1, "o": 1, "u": 1}
+
+def array_num_hash(array, number)
+  output_hash = {}
+  array.each { |element| output_hash[element] = number }
+  output_hash
+end
+
+p array_num_hash(["a", "e", "i", "o", "u"], 1)  # => {"a" => 1, "e" => 1, "i" => 1, "o" => 1, "u" => 1}
+
+#8
+# Write a function that accepts a string and returns a hash table of how many of each character there are:
+# Input: "bookkeeper"
+# Output: {"b" => 1, "o" => 2, "k" => 2, "e" => 3, "p" => 1, "r" => 1}
+
+def char_tally(string)
+  output_hash = {}
+  string.each_char { |letter| output_hash[letter] ? output_hash[letter] += 1 : output_hash[letter] = 1 }
+  output_hash
+end
+
+p char_tally("bookkeeper")  # => {"b" => 1, "o" => 2, "k" => 2, "e" => 3, "p" => 1, "r" => 1}
+p char_tally("maratical")  # => {"m" => 1, "a" => 3, "r" => 1, "t" => 1, "i" => 1, "c" => 1, "l" => 1}
 
