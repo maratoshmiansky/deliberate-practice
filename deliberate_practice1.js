@@ -139,3 +139,44 @@ function intersection(array1, array2) {
 console.log(intersection([5, 4, 3, 2, 1], [0, 2, 4, 6])); // => [4, 2]
 console.log(intersection([1, 2, 1, 2, 1, 2], [1, 2, 3, 4])); // => [1, 2]
 console.log(intersection([17, 31, 9], [8, 24, 13])); // => []
+
+// OBJECTS (Ruby hash problems refactored for JavaScript)
+
+//9
+// Write a function that accepts a string and returns a hash table displaying the frequency of each character.
+
+// Example:
+// Input: "abcdbcabcdcbaz"
+// Output: {"a"=>3, "b"=>4, "c"=>4, "d"=>2, "z"=>1}
+
+function frequency(string) {
+  let freqs = {};
+  let stringArray = string.split("");
+  stringArray.forEach((letter) => (freqs[letter] ? freqs[letter]++ : (freqs[letter] = 1)));
+  return freqs;
+}
+
+console.log(frequency("abcdbcabcdcbaz")); // => { a: 3, b: 4, c: 4, d: 2, z: 1 }
+console.log(frequency("supercalafrajalisticexpialidocious")); // => { s: 3, u: 2, p: 2, e: 2, r: 2, c: 3, a: 5, l: 3, f: 1, j: 1, i: 5, t: 1, x: 1, d: 1, o: 2 }
+
+//10
+// Write a function that accepts a hash table of political candidates and their number of votes and return the candidate with the most votes.
+// Example:
+// Input: {"Gutierrez": 954, "Johnson": 1005, "Warren": 333, "Bloomberg": 5}
+// Output: "Johnson"
+
+// def most_votes(votes)
+//   votes.key(votes.values.max).to_s
+// end
+
+// p most_votes({ "Gutierrez": 954, "Johnson": 1005, "Warren": 333, "Bloomberg": 5 })  # => "Johnson"
+// p most_votes({ "Marat": 1001, "Julie": 931, "Edgar": 213, "Marta": 1001 })  # => "Marat" (only returns the first max value)
+
+function mostVotes(votes) {
+  const maxVote = Math.max(...Object.values(votes));
+  // return Object.keys(votes).find((key) => votes[key] === maxVote);  // returns the first (or only) winner as a bareword
+  return Object.keys(votes).filter((key) => votes[key] === maxVote); // returns all winners (or the only winner) as string(s) in an array
+}
+
+console.log(mostVotes({ Gutierrez: 954, Johnson: 1005, Warren: 333, Bloomberg: 5 })); // => ['Johnson']
+console.log(mostVotes({ Marat: 1001, Julie: 931, Edgar: 213, Marta: 1001 })); // => ['Marat', 'Marta']
