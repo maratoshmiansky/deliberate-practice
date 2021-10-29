@@ -165,16 +165,9 @@ console.log(frequency("supercalafrajalisticexpialidocious")); // => { s: 3, u: 2
 // Input: {"Gutierrez": 954, "Johnson": 1005, "Warren": 333, "Bloomberg": 5}
 // Output: "Johnson"
 
-// def most_votes(votes)
-//   votes.key(votes.values.max).to_s
-// end
-
-// p most_votes({ "Gutierrez": 954, "Johnson": 1005, "Warren": 333, "Bloomberg": 5 })  # => "Johnson"
-// p most_votes({ "Marat": 1001, "Julie": 931, "Edgar": 213, "Marta": 1001 })  # => "Marat" (only returns the first max value)
-
 function mostVotes(votes) {
   const maxVote = Math.max(...Object.values(votes));
-  // return Object.keys(votes).find((key) => votes[key] === maxVote);  // returns the first (or only) winner as a bareword
+  // return Object.keys(votes).find((key) => votes[key] === maxVote);  // returns the first (or only) winner as a bareword/string
   return Object.keys(votes).filter((key) => votes[key] === maxVote); // returns all winners (or the only winner) as string(s) in an array
 }
 

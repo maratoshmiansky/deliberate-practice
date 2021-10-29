@@ -58,14 +58,14 @@ p most_shirts({ red: 500, blue: 615, green: 484, yellow: 332 })  # => :blue
 # The following hash table represents the inventory of shirts for a clothing store: { red: 500, blue: 615, green: 484, yellow: 332 } (same as previous exercise)
 # Write a function that adds 10 to each shirt color, and then return the updated hash table.
 
-def add_10_shirts_to_each_shirt(shirts)
+def add_10_shirts_of_each_color(shirts)
   shirts.each do |key, value|
     shirts[key] += 10
   end
   shirts
 end
 
-p add_10_shirts_to_each_shirt({ red: 500, blue: 615, green: 484, yellow: 332 })  # => { :red=>510, :blue=>625, :green=>494, :yellow=>342 }
+p add_10_shirts_of_each_color({ red: 500, blue: 615, green: 484, yellow: 332 })  # => { :red=>510, :blue=>625, :green=>494, :yellow=>342 }
 
 #7
 # The following array represents a bad attempt at storing data of U.S. states and their capitals:
@@ -92,9 +92,7 @@ p states_to_hash(["Illinois", "Springfield", "New York", "Albany", "Hawaii", "Ho
 
 def number_of_votes(votes)
   tally = {}
-  votes.each do |name|
-    tally[name] ? tally[name] += 1 : tally[name] = 1
-  end
+  votes.each { |name| tally[name] ? tally[name] += 1 : tally[name] = 1 }
   tally
 end
 
