@@ -75,21 +75,25 @@ console.log(totalPages(bookList));
 // Write a function that accepts this type of hash table and returns the total pages of all books written by Dr. Seuss.
 // Expected Output: 63
 
-// def pages_of_Seuss(list)
-//   list.select { |book| book[:author] == "Dr. Seuss" }.map { |book| book[:page_count] }.reduce(:+)
-// end
+function pagesOfSeuss(list) {
+  return list
+    .filter((book) => book.author === "Dr. Seuss")
+    .map((book) => book.pageCount)
+    .reduce((sum, num) => sum + num);
+}
 
-// p pages_of_Seuss(book_list)
+console.log(pagesOfSeuss(bookList));
 
 //5
 // Write a function that accepts this type of hash table and returns the book with the highest page count.
 // Expected Output: {title: "War and Peace", author: "Leo Tolstoy", pageCount: 1821}
 
-// def most_pages(list)
-//   list.map { |book| book[:page_count] }.max
-// end
+function mostPages(list) {
+  const highestCount = Math.max(...list.map((book) => book.pageCount)); // determine the highest page count
+  return list.filter((book) => book.pageCount === highestCount); // returns an array of book(s) with the highest page count
+}
 
-// p most_pages(book_list)
+console.log(mostPages(bookList));
 
 //6
 // Write a function that accepts this type of hash table and returns an array of strings that contain each book and author in the following format: "Hop on Pop by Dr. Seuss"

@@ -86,7 +86,8 @@ p pages_of_Seuss(book_list)
 # Expected Output: {title: "War and Peace", author: "Leo Tolstoy", pageCount: 1821}
 
 def most_pages(list)
-  list.map { |book| book[:page_count] }.max
+  highest_count = list.map { |book| book[:page_count] }.max  # determine the highest page count
+  list.select { |book| book[:page_count] == highest_count }  # returns an array of book(s) with the highest page count
 end
 
 p most_pages(book_list)
