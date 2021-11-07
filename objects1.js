@@ -106,14 +106,6 @@ console.log(
 // Write a function that accepts an array like this and returns a hash table showing how many votes each candidate received, like this:
 // {"Gutierrez": 3, "Johnson": 5}
 
-// def number_of_votes(votes)
-//   tally = {}
-//   votes.each { |name| tally[name] ? tally[name] += 1 : tally[name] = 1 }
-//   tally
-// end
-
-// p number_of_votes(["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez", "Johnson"])  # => {"Gutierrez"=>3, "Johnson"=>5}
-
 function numberOfVotes(votes) {
   let tally = {};
   votes.forEach((name) => (tally[name] ? tally[name]++ : (tally[name] = 1)));
