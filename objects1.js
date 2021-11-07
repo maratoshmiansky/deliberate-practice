@@ -50,24 +50,27 @@ shirtCount({ red: 500, blue: 615, green: 484, yellow: 332 }); // => 1931
 // The following hash table represents the inventory of shirts for a clothing store: { red: 500, blue: 615, green: 484, yellow: 332 } (same as previous exercise)
 // Write a function that accepts a hash table like this and returns the shirt color with the greatest number.
 
-// def most_shirts(shirts)
-//   shirts.key(shirts.values.max)
-// end
+function mostShirts(shirts) {
+  // return Object.keys(shirts).find((key) => shirts[key] === Math.max(...Object.values(shirts))); // only returns the key of the first max value
+  const maxValue = Math.max(...Object.values(shirts));
+  return Object.keys(shirts).filter((key) => shirts[key] === maxValue); // returns all keys of (duplicate) max values as an array
+}
 
-// p most_shirts({ red: 500, blue: 615, green: 484, yellow: 332 })  # => :blue
+console.log(mostShirts({ red: 500, blue: 615, green: 484, yellow: 332 })); // => [blue]
+console.log(mostShirts({ pink: 600, purple: 620, orange: 480, indigo: 620 })); // => [pink, indigo]
 
 //6
 // The following hash table represents the inventory of shirts for a clothing store: { red: 500, blue: 615, green: 484, yellow: 332 } (same as previous exercise)
 // Write a function that adds 10 to each shirt color, and then return the updated hash table.
 
-// def add_10_shirts_of_each_color(shirts)
-//   shirts.each do |key, value|
-//     shirts[key] += 10
-//   end
-//   shirts
-// end
+function add10ShirtsOfEachColor(shirts) {
+  for (const shirtKey in shirts) {
+    shirts[shirtKey] += 10;
+  }
+  return shirts;
+}
 
-// p add_10_shirts_of_each_color({ red: 500, blue: 615, green: 484, yellow: 332 })  # => { :red=>510, :blue=>625, :green=>494, :yellow=>342 }
+console.log(add10ShirtsOfEachColor({ red: 500, blue: 615, green: 484, yellow: 332 })); // => { red: 510, blue: 625, green: 494, yellow: 342 }
 
 //7
 // The following array represents a bad attempt at storing data of U.S. states and their capitals:
