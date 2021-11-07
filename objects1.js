@@ -78,17 +78,28 @@ console.log(add10ShirtsOfEachColor({ red: 500, blue: 615, green: 484, yellow: 33
 // Write a function that accepts an array in this format and returns the same data as a proper hash table, like this:
 // {"Illinois"=>"Springfield", "New York"=>"Albany", "Hawaii"=>"Honolulu", "Colorado"=>"Denver", "Idaho"=>"Boise"}
 
-// def states_to_hash(states)
-//   states_hash = {}
-//   index = 0
-//   while index < states.length - 1
-//     states_hash[states[index]] = states[index + 1]
-//     index += 2
-//   end
-//   states_hash
-// end
+function statesToHash(states) {
+  let statesHash = {};
+  for (let index = 0; index < states.length - 1; index += 2) {
+    statesHash[states[index]] = states[index + 1];
+  }
+  return statesHash;
+}
 
-// p states_to_hash(["Illinois", "Springfield", "New York", "Albany", "Hawaii", "Honolulu", "Colorado", "Denver", "Idaho", "Boise"])  # => {"Illinois"=>"Springfield", "New York"=>"Albany", "Hawaii"=>"Honolulu", "Colorado"=>"Denver", "Idaho"=>"Boise"}
+console.log(
+  statesToHash([
+    "Illinois",
+    "Springfield",
+    "New York",
+    "Albany",
+    "Hawaii",
+    "Honolulu",
+    "Colorado",
+    "Denver",
+    "Idaho",
+    "Boise",
+  ])
+); // => { Illinois: 'Springfield', 'New York': 'Albany', Hawaii: 'Honolulu', Colorado: 'Denver', Idaho: 'Boise' }
 
 //8
 // The following array contains a record of each vote for a particular political candidate. Each string represents a vote. For example: ["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez", "Johnson"]
@@ -102,3 +113,13 @@ console.log(add10ShirtsOfEachColor({ red: 500, blue: 615, green: 484, yellow: 33
 // end
 
 // p number_of_votes(["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez", "Johnson"])  # => {"Gutierrez"=>3, "Johnson"=>5}
+
+function numberOfVotes(votes) {
+  let tally = {};
+  votes.forEach((name) => (tally[name] ? tally[name]++ : (tally[name] = 1)));
+  return tally;
+}
+
+console.log(
+  numberOfVotes(["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez", "Johnson"])
+); // => { Gutierrez: 3, Johnson: 5 }
