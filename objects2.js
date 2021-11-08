@@ -121,6 +121,14 @@ console.log(mostPages(bookList));
 
 // p titles_by_author(book_list)
 
+function titlesByAuthor(list) {
+  let bookStrings = [];
+  list.forEach((book) => bookStrings.push(`${book.title} by ${book.author}`));
+  return bookStrings;
+}
+
+console.log(titlesByAuthor(bookList));
+
 //7
 // Here's an array of strings, with each string representing a vote for a particular political candidate.
 // ["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez"]
