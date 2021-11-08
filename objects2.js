@@ -137,13 +137,12 @@ console.log(voteTally(["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez"
 // Extend the previous function to return the winner of the election (that is, the candidate with the most votes).
 // Expected Output: "Johnson"
 
-// def winner(candidates)
-//   tally = {}
-//   candidates.each { |candidate| tally[candidate] ? tally[candidate] += 1 : tally[candidate] = 1 }
-//   # tally.key(tally.values.max)  # only returns the first winner
-//   win_count = tally.values.max
-//   tally.select { |key, value| value == win_count }.keys  # returns an array of winning candidate(s)
-// end
+function winner(candidates) {
+  let tally = {};
+  candidates.forEach((candidate) => (tally[candidate] ? tally[candidate]++ : (tally[candidate] = 1)));
+  const winCount = Math.max(...Object.values(tally)); // determine the highest vote count
+  return Object.keys(tally).filter((candidate) => tally[candidate] === winCount); // returns an array of the candidate(s) with the most votes
+}
 
-// p winner(["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez"])
-// p winner(["Marat", "Marta", "Marat", "Marta"])
+console.log(winner(["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez"])); // => [ 'Johnson' ]
+console.log(winner(["Marat", "Marta", "Marat", "Marta"])); // => [ 'Marat', 'Marta' ]
