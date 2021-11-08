@@ -1,3 +1,5 @@
+// OBJECTS2 (Ruby hash problems refactored for JavaScript)
+
 //1
 // The following array of hash tables represents a list of books. This will be the basis for Exercises #1 - 6.
 // [
