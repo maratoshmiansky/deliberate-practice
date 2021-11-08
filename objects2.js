@@ -111,16 +111,6 @@ console.log(mostPages(bookList));
 //   'The Adventures of Huckleberry Finn by Mark Twain'
 // ]
 
-// def titles_by_author(list)
-//   book_strings = []
-//   list.each do |book|
-//     book_strings << "#{book[:title]} by #{book[:author]}"
-//   end
-//   book_strings
-// end
-
-// p titles_by_author(book_list)
-
 function titlesByAuthor(list) {
   let bookStrings = [];
   list.forEach((book) => bookStrings.push(`${book.title} by ${book.author}`));
@@ -135,15 +125,13 @@ console.log(titlesByAuthor(bookList));
 // Write a function that returns a hash table containing the tally of votes for each candidate.
 // Expected Output: {"Gutierrez": 3, "Johnson": 4}
 
-// def vote_tally(candidates)
-//   tally = {}
-//   candidates.each do |candidate|
-//     tally[candidate] ? tally[candidate] += 1 : tally[candidate] = 1
-//   end
-//   tally
-// end
+function voteTally(candidates) {
+  let tally = {};
+  candidates.forEach((candidate) => (tally[candidate] ? tally[candidate]++ : (tally[candidate] = 1)));
+  return tally;
+}
 
-// p vote_tally(["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez"])
+console.log(voteTally(["Gutierrez", "Johnson", "Johnson", "Johnson", "Gutierrez", "Johnson", "Gutierrez"])); // => { Gutierrez: 3, Johnson: 4 }
 
 //8
 // Extend the previous function to return the winner of the election (that is, the candidate with the most votes).
