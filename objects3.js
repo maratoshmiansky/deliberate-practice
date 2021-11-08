@@ -5,19 +5,18 @@
 // Input: {"a": 1, "b": 2, "c": 3, "d": 4}
 // Output: ["a", 1, "b", 2, "c", 3, "d", 4]
 
-// def hash_to_array(hash)
-//   array = []
-//   index = 0
-//   hash.each do |key, value|
-//     array[index] = key
-//     array[index + 1] = value
-//     index += 2
-//   end
-//   array
-// end
+function objectToArray(inputObject) {
+  let outputArray = [];
+  let index = 0;
+  for (const objectKey in inputObject) {
+    outputArray[index] = objectKey;
+    outputArray[index + 1] = inputObject[objectKey];
+    index += 2;
+  }
+  return outputArray;
+}
 
-// p hash_to_array({"a": 1, "b": 2, "c": 3, "d": 4})  # this returns the string keys as symbols in the array
-// p hash_to_array({"a" => 1, "b" => 2, "c" => 3, "d" => 4})  # this returns the string keys as strings in the array
+console.log(objectToArray({ a: 1, b: 2, c: 3, d: 4 })); // => ['a', 1, 'b', 2, 'c', 3, 'd', 4]
 
 //2
 // Write a function that accepts a hash table and returns an array of subarrays, where each subarray contains the key and value of each pair.
