@@ -109,27 +109,30 @@ console.log(
 // Inputs: ["a", "e", "i", "o", "u"], 1
 // Output: {"a": 1, "e": 1, "i": 1, "o": 1, "u": 1}
 
-// def array_num_hash(array, number)
-//   output_hash = {}
-//   array.each { |element| output_hash[element] = number }
-//   output_hash
-// end
+function arrayNumObject(inputArray, inputNum) {
+  let outputObject = {};
+  inputArray.forEach((element) => (outputObject[element] = inputNum));
+  return outputObject;
+}
 
-// p array_num_hash(["a", "e", "i", "o", "u"], 1)  # => {"a" => 1, "e" => 1, "i" => 1, "o" => 1, "u" => 1}
+console.log(arrayNumObject(["a", "e", "i", "o", "u"], 1)); // => { a: 1, e: 1, i: 1, o: 1, u: 1 }
+console.log(arrayNumObject(["1", "2", "3", "4", "5"], 10)); // => { '1': 10, '2': 10, '3': 10, '4': 10, '5': 10 }
+console.log(arrayNumObject([1, 2, 3, 4, 5], 10)); // => { '1': 10, '2': 10, '3': 10, '4': 10, '5': 10 }
 
 //8
 // Write a function that accepts a string and returns a hash table of how many of each character there are:
 // Input: "bookkeeper"
 // Output: {"b" => 1, "o" => 2, "k" => 2, "e" => 3, "p" => 1, "r" => 1}
 
-// def char_tally(string)
-//   output_hash = {}
-//   string.each_char { |letter| output_hash[letter] ? output_hash[letter] += 1 : output_hash[letter] = 1 }
-//   output_hash
-// end
+function charTally(inputString) {
+  let outputObject = {};
+  const inputStringArray = inputString.split("");
+  inputStringArray.forEach((letter) => (outputObject[letter] ? outputObject[letter]++ : (outputObject[letter] = 1)));
+  return outputObject;
+}
 
-// p char_tally("bookkeeper")  # => {"b" => 1, "o" => 2, "k" => 2, "e" => 3, "p" => 1, "r" => 1}
-// p char_tally("maratical")  # => {"m" => 1, "a" => 3, "r" => 1, "t" => 1, "i" => 1, "c" => 1, "l" => 1}
+console.log(charTally("bookkeeper")); // => { b: 1, o: 2, k: 2, e: 3, p: 1, r: 1 }
+console.log(charTally("maratical")); // => { m: 1, a: 3, r: 1, t: 1, i: 1, c: 1, l: 1 }
 
 //9
 // Write a function that accepts an array of books and returns a hash table of how many times each author occurs:
