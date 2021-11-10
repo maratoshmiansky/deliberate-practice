@@ -76,28 +76,33 @@ console.log(flipObject({ 1: "Joe", 2: "Jim", 3: "Jack" })); // => { Joe: '1', Ji
 // Input: ["do", "or", "do", "not"]
 // Output: {"do": 2, "or": 1, "not": 1}
 
-// def tally_string_array(array)
-//   string_hash = {}
-//   array.each { |string| string_hash[string] ? string_hash[string] += 1 : string_hash[string] = 1 }
-//   string_hash
-// end
+function tallyStringArray(inputArray) {
+  let stringObject = {};
+  inputArray.forEach((string) => (stringObject[string] ? stringObject[string]++ : (stringObject[string] = 1)));
+  return stringObject;
+}
 
-// p tally_string_array(["do", "or", "do", "not"])  # => {"do" => 2, "or" => 1, "not" => 1}
-// p tally_string_array(["pink", "purple", "yellow", "purple", "yellow", "white", "pink"])  # => {"pink" => 2, "purple" => 2, "yellow" => 2, "white" => 1}
-// p tally_string_array("I am the man who is the man who tells a man to man up, man".split(" "))  # => {"I" => 1, "am" => 1, "the" => 2, "man" => 5, "who" => 2, "is" => 1, "tells" => 1, "a" => 1, "to" => 1, "up," => 1}
+console.log(tallyStringArray(["do", "or", "do", "not"])); // => { do: 2, or: 1, not: 1 }
+console.log(tallyStringArray(["pink", "purple", "yellow", "purple", "yellow", "white", "pink"])); // => { pink: 2, purple: 2, yellow: 2, white: 1 }
 
 //6
 // Write a function that accepts an array of products and returns a hash table where the id numbers are the keys, and the products hash tables are the values.
 // Input: [ {id: 1, product: "table", price: 32}, {id: 2, product: "chair", price: 12}, {id: 3, product: "sofa", price: 100} ]
 // Output: {1: {id: 1, product: "table", price: 32}, 2: {id: 2, product: "chair", price: 12}, 3: {id: 2, product: "sofa", price: 100} }
 
-// def hash_array_to_hash(array)
-//   output_hash = {}
-//   array.each { |hash| output_hash[hash[:id]] = hash }
-//   output_hash
-// end
+function objectArrayToObject(inputArray) {
+  let outputObject = {};
+  inputArray.forEach((object) => (outputObject[object.id] = object));
+  return outputObject;
+}
 
-// p hash_array_to_hash([ {id: 1, product: "table", price: 32}, {id: 2, product: "chair", price: 12}, {id: 3, product: "sofa", price: 100} ])  # => {1 => {:id => 1, :product => "table", :price => 32}, 2 => {:id => 2, :product => "chair", :price => 12}, 3 => {:id => 3, :product => "sofa", :price => 100}}
+console.log(
+  objectArrayToObject([
+    { id: 1, product: "table", price: 32 },
+    { id: 2, product: "chair", price: 12 },
+    { id: 3, product: "sofa", price: 100 },
+  ])
+); // => { '1': { id: 1, product: 'table', price: 32 }, '2': { id: 2, product: 'chair', price: 12 }, '3': { id: 3, product: 'sofa', price: 100 } }
 
 //7
 // Write a function that accepts TWO parameters, an array and a number. The function should return a hash table, where each item in the array is a key, and the number is a value.
