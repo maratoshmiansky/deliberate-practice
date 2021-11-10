@@ -139,23 +139,41 @@ console.log(charTally("maratical")); // => { m: 1, a: 3, r: 1, t: 1, i: 1, c: 1,
 // Input: [ {title: "Great Book", author: "John Smith"}, {title: "1984", author: "George Orwell"}, {title: "Awesome Book", author: "John Smith"} ]
 // Output: {"John Smith" => 2, "George Orwell" => 1}
 
-// def author_times(array)
-//   tally = {}
-//   array.each { |hash| tally[hash[:author]] ? tally[hash[:author]] += 1 : tally[hash[:author]] = 1 }
-//   tally
-// end
+function authorTimes(bookArray) {
+  let authorTally = {};
+  bookArray.forEach((titleAuthor) =>
+    authorTally[titleAuthor.author] ? authorTally[titleAuthor.author]++ : (authorTally[titleAuthor.author] = 1)
+  );
+  return authorTally;
+}
 
-// p author_times([{title: "Great Book", author: "John Smith"}, {title: "1984", author: "George Orwell"}, {title: "Awesome Book", author: "John Smith"}])  # => {"John Smith" => 2, "George Orwell" => 1}
+console.log(
+  authorTimes([
+    { title: "Great Book", author: "John Smith" },
+    { title: "1984", author: "George Orwell" },
+    { title: "Awesome Book", author: "John Smith" },
+  ])
+); // => { 'John Smith': 2, 'George Orwell': 1 }
 
 //10
 // Write a function that accepts an array of books and returns a hash table where the author is the key, and an array of their book titles are the values
 // Input: [ {title: "Great Book", author: "John Smith"}, {title: "1984", author: "George Orwell"}, {title: "Awesome Book", author: "John Smith"} ]
 // Output: { "John Smith": ["Great Book, "Awesome Book"], "George Orwell": ["1984"] }
 
-// def author_titles(array)
-//   tally = {}
-//   array.each { |hash| tally[hash[:author]] ? tally[hash[:author]] << hash[:title] : tally[hash[:author]] = [hash[:title]] }
-//   tally
-// end
+function authorTitles(bookArray) {
+  let authorTally = {};
+  bookArray.forEach((titleAuthor) =>
+    authorTally[titleAuthor.author]
+      ? authorTally[titleAuthor.author].push(titleAuthor.title)
+      : (authorTally[titleAuthor.author] = [titleAuthor.title])
+  );
+  return authorTally;
+}
 
-// p author_titles([{title: "Great Book", author: "John Smith"}, {title: "1984", author: "George Orwell"}, {title: "Awesome Book", author: "John Smith"}])  # => {"John Smith" => ["Great Book", "Awesome Book"], "George Orwell" => ["1984"]}
+console.log(
+  authorTitles([
+    { title: "Great Book", author: "John Smith" },
+    { title: "1984", author: "George Orwell" },
+    { title: "Awesome Book", author: "John Smith" },
+  ])
+); // => { 'John Smith': [ 'Great Book', 'Awesome Book' ], 'George Orwell': [ '1984' ] }
