@@ -9,7 +9,7 @@
 
 def merge_sorted_arrays(array1, array2)
   index = 0  # to iterate through array1
-  while array2.length > 0 && index < array1.length do  # the second condition avoids indexing past the last number in array1
+  while !array2.empty? && index < array1.length do  # the second condition avoids indexing past the last number in array1
     if array2[0] <= array1[index]
       array1.insert(index, array2.shift)  # move the number at array2[0] into array1 at the current index (array2's numbers shift left)
       index += 1  # to move the index one number past the inserted number
@@ -29,4 +29,5 @@ p merge_sorted_arrays([], [10, 13, 18, 26])  # => [10, 13, 18, 26]
 p merge_sorted_arrays([4, 6, 8, 10], [])  # => [4, 6, 8, 10]
 p merge_sorted_arrays([-1, -1, -1, -1], [-1, -1, -1, -1])  # => [-1, -1, -1, -1, -1, -1, -1, -1]
 p merge_sorted_arrays([-1, -1, -1, -1], [1, 1, 1, 1])  # => [-1, -1, -1, -1, 1, 1, 1, 1]
+p merge_sorted_arrays([-11, 12], [0, 19])  # => [-11, 0, 12, 19]
 p merge_sorted_arrays([], [])  # => []
