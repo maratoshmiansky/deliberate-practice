@@ -32,3 +32,53 @@ p merge_sorted_arrays([-1, -1, -1, -1], [-1, -1, -1, -1])  # => [-1, -1, -1, -1,
 p merge_sorted_arrays([-1, -1, -1, -1], [1, 1, 1, 1])  # => [-1, -1, -1, -1, 1, 1, 1, 1]
 p merge_sorted_arrays([-11, 12], [0, 19])  # => [-11, 0, 12, 19]
 p merge_sorted_arrays([], [])  # => []
+
+#2
+# Write a function to find the longest common prefix string amongst an array of strings.
+
+# If there is no common prefix, return an empty string "".
+
+# Example 1:
+
+# Input: ["flower","flow","flight"]
+# Output: "fl"
+# Example 2:
+
+# Input: ["dog","racecar","car"]
+# Output: ""
+# Explanation: There is no common prefix among the input strings.
+# Note:
+
+# All given inputs are in lowercase letters a-z.
+
+def longest_common_prefix(string_array)
+  if string_array.include?("")
+    return ""  # no common prefix if input array contains an empty string, so we break out
+  end
+  shortest_string_length = string_array.min.length  # we only need to match as many characters as the shortest string in the input array
+  common_prefix = ""
+  prefix_match = true
+  char_index = 0  # to index through each string's characters
+  while char_index < shortest_string_length && prefix_match do
+    index = 1  # to start the comparison with the second string
+    while index < string_array.length && prefix_match do
+      if string_array[0][char_index] != string_array[index][char_index]
+        prefix_match = false  # to break out of the loops
+      end
+      index += 1
+    end
+    if prefix_match
+      common_prefix += string_array[0][char_index]  # if all strings in the input array matched at char_index, we have a common prefix
+    end
+    char_index += 1
+  end
+  common_prefix
+end
+
+p longest_common_prefix(["flower", "flow", "flight"])  # => "fl"
+p longest_common_prefix(["dog", "racecar", "car"])  # => ""
+p longest_common_prefix(["mammal", "mammary", "madam", "master", "madder"])  # => "ma"
+p longest_common_prefix(["boy", "", "girl", ""])  # => ""
+p longest_common_prefix(["123456789", "12345678", "1234567", "123456", "12345", "1234"])  # => "1234"
+p longest_common_prefix(["maratical", "marat", "marta", "mars"])  # => "mar"
+p longest_common_prefix(["hello", "hello", "hello", "hello"])  # => "hello"
