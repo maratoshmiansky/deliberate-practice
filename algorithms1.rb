@@ -82,3 +82,30 @@ p longest_common_prefix(["boy", "", "girl", ""])  # => ""
 p longest_common_prefix(["123456789", "12345678", "1234567", "123456", "12345", "1234"])  # => "1234"
 p longest_common_prefix(["maratical", "marat", "marta", "mars"])  # => "mar"
 p longest_common_prefix(["hello", "hello", "hello", "hello"])  # => "hello"
+
+#3
+# Given two strings, return true if they are anagrams of each other, and false if they are not. An anagram is a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
+
+# Do not use any built-in sort methods.
+
+# Input: “silent”, “listen”
+# Output: true
+
+# Input: “frog”, “bear”
+# Output: false
+
+def anagrams?(string1, string2)
+  # we create two hashes from string1 and string2 to tally the # of times each letter/character occurs - if the hashes are equal, the strings are anagrams
+  string1_tally = {}
+  string2_tally = {}
+  string1.each_char { |char| string1_tally[char] ? string1_tally[char] += 1 : string1_tally[char] = 1 }  # create tally hash for string1
+  string2.each_char { |char| string2_tally[char] ? string2_tally[char] += 1 : string2_tally[char] = 1 }  # create tally hash for string2
+  string1_tally == string2_tally  # returns true if both string tallies are equal, returns false otherwise
+end
+
+p anagrams?("silent", "listen")  # => true
+p anagrams?("frog", "bear")  # => false
+p anagrams?("marat", "marta")  # => true
+p anagrams?("hello", "hell")  # => false
+p anagrams?("x", "")  # => false
+p anagrams?("", "")  # => true
