@@ -47,4 +47,14 @@ rockstars = [
               { first_name: "Nick", last_name: "Mason", band: "Pink Floyd", roles: ["drums"] },
             ]
 
-rockstars.each { |rockstar| p "#{rockstar[:first_name]} #{rockstar[:last_name]} performed #{rockstar[:roles].join(", ")} for #{rockstar[:band]}." }
+rockstars.each { |rockstar| p "#{rockstar[:first_name]} #{rockstar[:last_name]} performed #{rockstar[:roles].join(", ")} for #{rockstar[:band]}." } # displays who performed what in each band
+p rockstars.select { |rockstar| rockstar[:band] == "Pink Floyd" }  # displays all members of Pink Floyd (as array of hashes)
+p rockstars.select { |rockstar| rockstar[:roles].include?("vocals") }  # displays all vocalists (as array of hashes)
+p rockstars.sort { |rockstar1, rockstar2| rockstar1[:last_name] <=> rockstar2[:last_name] }  # displays all rockstars (as array of hashes), sorted (ascending) by last name
+
+members_of_Led_Zeppelin = rockstars.select { |rockstar| rockstar[:band] == "Led Zeppelin" }
+members_of_Led_Zeppelin.each { |rockstar| p "#{rockstar[:first_name]} #{rockstar[:last_name]} performed #{rockstar[:roles].join(", ")} for #{rockstar[:band]}." }  # displays who performed what in Led Zeppelin
+
+vocalists = rockstars.select { |rockstar| rockstar[:roles].include?("vocals") }
+vocalists.each { |rockstar| p "#{rockstar[:first_name]} #{rockstar[:last_name]} performed #{rockstar[:roles].join(", ")} for #{rockstar[:band]}." }  # displays all rockstars who performed vocals
+
