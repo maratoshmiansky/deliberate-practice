@@ -109,3 +109,23 @@ p anagrams?("marat", "marta")  # => true
 p anagrams?("hello", "hell")  # => false
 p anagrams?("x", "")  # => false
 p anagrams?("", "")  # => true
+
+#4 Write a function to calculate the nth Fibonacci number recursively, where the Fibonacci sequence is given by:
+
+# 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ... (nth Fibonacci # = (n - 1)th Fibonacci # + (n - 2)th Fibonacci #)
+
+# ex1: fib(0) = 0
+# ex2: fib(1) = 1
+# ex3: fib(4) = 3
+# ex4: fib(8) = 21
+
+def fib(num)
+  return num if num == 0 || num == 1  # fib(0) = 0, fib(1) = 1
+  nth_fib = fib(num - 1) + fib(num - 2)  # nth_fib is returned after all recursive calls to fib
+end
+
+p fib(0)  # => 0
+p fib(1)  # => 1
+p fib(4)  # => 3
+p fib(8)  # => 21
+p fib(12)  # => 144
