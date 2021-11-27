@@ -190,4 +190,49 @@ end
 
 p sum_of_fib
 
-#8
+#8 The prime factors of 13195 are 5, 7, 13 and 29.
+
+# What is the largest prime factor of the number 600851475143?
+
+# First implementation using Ruby's prime library
+
+require "prime"
+
+# 600851475143 = 71 * 839 * 1471 * 6857
+p 600851475143.prime_division.map { |pair| pair[0] }.max  # => 6857
+
+# Second implementation using Ruby's prime library
+
+def largest_prime_factor(num)
+  return "try again with an integer >= 2" if num < 2
+  return num if num.prime?  # if num is composite then continue on
+  div_max = Math.sqrt(num).ceil  # we only need to divide num by primes < div_max
+  if num.even?  # eliminate 2 as a prime divisor so we can increment div by 2 each time through the loop below
+    num /= 2
+    largest = 2
+  else
+    largest = 1
+  end
+  div = 3  # first prime divisor to test (after testing evenness above)
+
+  while div <= div_max
+    if div.prime? && num % div == 0
+      largest = div
+      num /= div
+    end
+    div += 2  # only checking odd divisors
+  end
+
+  largest
+end
+
+p largest_prime_factor(1)  # => "try again with an integer >= 2"
+p largest_prime_factor(2)  # => 2
+p largest_prime_factor(16)  # => 2
+p largest_prime_factor(17)  # => 17
+p largest_prime_factor(18)  # => 3
+p largest_prime_factor(81)  # => 3
+p largest_prime_factor(101)  # => 101
+p largest_prime_factor(1001)  # => 13
+p largest_prime_factor(13195)  # => 29
+p largest_prime_factor(600851475143)  # => 6857
