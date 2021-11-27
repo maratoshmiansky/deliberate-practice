@@ -1,5 +1,4 @@
-# 1
-# Given two sorted arrays, merge the second array into the first array while ensuring that the first array remains sorted. Do not use any built-in sort methods.
+#1 Given two sorted arrays, merge the second array into the first array while ensuring that the first array remains sorted. Do not use any built-in sort methods.
 
 # Input :
 # A : [1, 5, 8]
@@ -33,8 +32,7 @@ p merge_sorted_arrays([-1, -1, -1, -1], [1, 1, 1, 1])  # => [-1, -1, -1, -1, 1, 
 p merge_sorted_arrays([-11, 12], [0, 19])  # => [-11, 0, 12, 19]
 p merge_sorted_arrays([], [])  # => []
 
-#2
-# Write a function to find the longest common prefix string amongst an array of strings.
+#2 Write a function to find the longest common prefix string amongst an array of strings.
 
 # If there is no common prefix, return an empty string "".
 
@@ -52,13 +50,13 @@ p merge_sorted_arrays([], [])  # => []
 # All given inputs are in lowercase letters a-z.
 
 def longest_common_prefix(string_array)
-  if string_array.include?("")
-    return ""  # no common prefix if input array contains an empty string, so we break out
-  end
+  return "" if string_array.include?("")  # no common prefix if input array contains an empty string, so we break out
+
   shortest_string_length = string_array.min.length  # we only need to match as many characters as the shortest string in the input array
   common_prefix = ""
   prefix_match = true
   char_index = 0  # to index through each string's characters
+  
   while char_index < shortest_string_length && prefix_match do
     index = 1  # to start the comparison with the second string
     while index < string_array.length && prefix_match do
@@ -72,6 +70,7 @@ def longest_common_prefix(string_array)
     end
     char_index += 1
   end
+
   common_prefix
 end
 
@@ -83,8 +82,7 @@ p longest_common_prefix(["123456789", "12345678", "1234567", "123456", "12345", 
 p longest_common_prefix(["maratical", "marat", "marta", "mars"])  # => "mar"
 p longest_common_prefix(["hello", "hello", "hello", "hello"])  # => "hello"
 
-#3
-# Given two strings, return true if they are anagrams of each other, and false if they are not. An anagram is a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
+#3 Given two strings, return true if they are anagrams of each other, and false if they are not. An anagram is a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
 
 # Do not use any built-in sort methods.
 
@@ -110,7 +108,7 @@ p anagrams?("hello", "hell")  # => false
 p anagrams?("x", "")  # => false
 p anagrams?("", "")  # => true
 
-#4 Write a function to calculate the nth Fibonacci number recursively, where the Fibonacci sequence is given by:
+#4 Write a function to calculate the nth Fibonacci number (for n >= 0) recursively, where the Fibonacci sequence is given by:
 
 # 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ... (nth Fibonacci # = (n - 1)th Fibonacci # + (n - 2)th Fibonacci #)
 
@@ -129,3 +127,26 @@ p fib(1)  # => 1
 p fib(4)  # => 3
 p fib(8)  # => 21
 p fib(12)  # => 144
+
+#5 A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+
+# Find the largest palindrome made from the product of two 3-digit numbers.
+
+def largest_palindrome_product
+  num1 = 100
+  largest = [10000, 100, 100]  # initial value (100 * 100)
+  while num1 <= 999
+    num2 = 100
+    while num2 <= 999
+      product = num1 * num2
+      if product.to_s == product.to_s.reverse && product > largest[0]
+        largest = [product, num1, num2]
+      end
+      num2 += 1
+    end
+    num1 += 1
+  end
+  largest  # return an array containing the largest palindrome product and the corresponding multiplicands
+end
+
+p largest_palindrome_product
