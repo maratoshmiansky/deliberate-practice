@@ -134,7 +134,7 @@ p fib(12)  # => 144
 
 def largest_palindrome_product
   num1 = 100
-  largest = [10000, 100, 100]  # initial value (100 * 100)
+  largest = [10000, 100, 100]  # initial product is 10000 (100 * 100)
   while num1 <= 999
     num2 = 100
     while num2 <= 999
@@ -150,3 +150,22 @@ def largest_palindrome_product
 end
 
 p largest_palindrome_product
+
+#6 If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23.
+
+# Find the sum of all the multiples of 3 or 5 below 1000.
+
+def sum_of_multiples
+  sum = 0
+  n = 1
+  while n < 1000
+    if n % 3 == 0 || n % 5 == 0
+      sum += n
+    end
+    n += 1
+  end 
+  sum
+end
+
+p sum_of_multiples
+
