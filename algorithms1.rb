@@ -220,7 +220,7 @@ def largest_prime_factor(num)
       largest = div
       num /= div
     end
-    div += 2  # only checking odd divisors
+    div += 2  # only checking odd divisors > 2
   end
 
   largest
@@ -236,3 +236,33 @@ p largest_prime_factor(101)  # => 101
 p largest_prime_factor(1001)  # => 13
 p largest_prime_factor(13195)  # => 29
 p largest_prime_factor(600851475143)  # => 6857
+
+#9 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+
+# What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+
+def smallest_divisible(upper)
+  return "try an integer >= 1" if upper < 1
+  return upper if upper.between?(1, 2)
+  n = 1
+  num = 2
+  
+  while n <= upper
+    if num % n == 0
+      n += 1
+    else
+      n = 1
+      num += 2  # we only need to test even numbers
+    end    
+  end
+
+  num
+end
+
+p smallest_divisible(0)  # => "try an integer >= 1"
+p smallest_divisible(1)  # => 1
+p smallest_divisible(2)  # => 2
+p smallest_divisible(3)  # => 6
+p smallest_divisible(5)  # => 60
+p smallest_divisible(10)  # => 2520
+p smallest_divisible(20)  # => 232792560 (this takes much too long to compute!)
