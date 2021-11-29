@@ -241,6 +241,8 @@ p largest_prime_factor(600851475143)  # => 6857
 
 # What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
 
+# First implementation iterating through all even integers (very slow!)
+
 def smallest_divisible(upper)
   return "try an integer >= 1" if upper < 1
   return upper if upper.between?(1, 2)
@@ -265,4 +267,34 @@ p smallest_divisible(2)  # => 2
 p smallest_divisible(3)  # => 6
 p smallest_divisible(5)  # => 60
 p smallest_divisible(10)  # => 2520
-p smallest_divisible(20)  # => 232792560 (this takes much too long to compute!)
+# p smallest_divisible(20)  # => 232792560 (this takes much too long to compute!)
+
+# Some scratchwork for a better solution...
+
+# p (1..5).reduce(:*)  # => 120
+# p (2..20).select { |num| num.prime? }  # => [2, 3, 5, 7, 11, 13, 17, 19]
+# p (2..20).select { |num| Math.sqrt(num) % 1 == 0 }.map { |square| Math.sqrt(square).to_i }  # => [2, 3, 4]
+# p (2..20).select { |num| Math.cbrt(num) % 1 == 0 }.map { |cube| Math.cbrt(cube).to_i }  # => [2]
+
+# Second implementation utilizing the Fundamental Theorem of Arithmetic (unique prime factorization of integers)
+
+def smallest_divisible2(upper)
+  return "try an integer >= 1" if upper < 1
+  return upper if upper.between?(1, 2)
+  primes = (2..upper).select { |num| num.prime? }  # store all the primes <= upper in an array
+  square_roots = (2..upper).select { |num| Math.sqrt(num) % 1 == 0 }.map { |square| Math.sqrt(square).to_i }  # store all the integers <= upper that form perfect squares in an array
+  cube_roots = (2..upper).select { |num| Math.cbrt(num) % 1 == 0 }.map { |cube| Math.cbrt(cube).to_i }  # store all the integers <= upper that form perfect cubes in an array
+  cube_roots.reject! { |root| square_roots.include?(root**2) }  # remove cube roots whose squares are included in square_roots (inclusion/exclusion of multiplicities of powers)
+  roots = square_roots + cube_roots  # (a full implementation would also include all integer roots of prime powers...and their inclusion/exclusion)
+  result = !roots.empty? ? primes.reduce(:*) * roots.reduce(:*) : primes.reduce(:*)  # multiply the primes by the square roots to get the preliminary result
+end
+
+p smallest_divisible2(0)  # => "try an integer >= 1"
+p smallest_divisible2(1)  # => 1
+p smallest_divisible2(2)  # => 2
+p smallest_divisible2(3)  # => 6
+p smallest_divisible2(5)  # => 60
+p smallest_divisible2(10)  # => 2520
+p smallest_divisible2(20)  # => 232792560
+p (1..17).map { |num| [num, smallest_divisible(num)] }  # algorithm is too slow for upper > 17
+p (1..31).map { |num| [num, smallest_divisible2(num)] }  # algorithm fails for upper >= 32 as fifth power multiplicities aren't accounted for
