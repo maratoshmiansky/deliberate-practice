@@ -281,12 +281,12 @@ p smallest_divisible(10)  # => 2520
 def smallest_divisible2(upper)
   return "try an integer >= 1" if upper < 1
   return upper if upper.between?(1, 2)
-  primes = (2..upper).select { |num| num.prime? }  # store all the primes <= upper in an array
-  square_roots = (2..upper).select { |num| Math.sqrt(num) % 1 == 0 }.map { |square| Math.sqrt(square).to_i }  # store all the integers <= upper that form perfect squares in an array
-  cube_roots = (2..upper).select { |num| Math.cbrt(num) % 1 == 0 }.map { |cube| Math.cbrt(cube).to_i }  # store all the integers <= upper that form perfect cubes in an array
+  primes = (2..upper).select { |num| num.prime? }  # all primes <= upper
+  square_roots = (2..upper).select { |num| Math.sqrt(num) % 1 == 0 }.map { |square| Math.sqrt(square).to_i }  # roots of all squares <= upper
+  cube_roots = (2..upper).select { |num| Math.cbrt(num) % 1 == 0 }.map { |cube| Math.cbrt(cube).to_i }  # roots of all cubes <= upper
   cube_roots.reject! { |root| square_roots.include?(root**2) }  # remove cube roots whose squares are included in square_roots (inclusion/exclusion of multiplicities of powers)
   roots = square_roots + cube_roots  # (a full implementation would also include all integer roots of prime powers...and their inclusion/exclusion)
-  result = !roots.empty? ? primes.reduce(:*) * roots.reduce(:*) : primes.reduce(:*)  # multiply the primes by the square roots to get the preliminary result
+  result = !roots.empty? ? primes.reduce(:*) * roots.reduce(:*) : primes.reduce(:*)  # multiply the primes by the roots to get the result
 end
 
 p smallest_divisible2(0)  # => "try an integer >= 1"
