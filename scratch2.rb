@@ -73,8 +73,12 @@ people = [dwight1, dwight2, autumn, noah]
 
 instance = PersonMatcher.new(*people)
 
-p instance.find_match(first_name: "Dwight", last_name: "Appleton")  # => [{:first_name=>"Dwight", :middle_name=>"Glenn", :last_name=>"Appleton"}, {:first_name=>"Dwight", :middle_name=>"Gerald", :last_name=>"Appleton"}]
-p instance.find_match(first_name: "Dwight", middle_name: "Gerald", last_name: "Appleton")  # => [{:first_name=>"Dwight", :middle_name=>"Gerald", :last_name=>"Appleton"}]
+p matches1 = instance.find_match(first_name: "Dwight", last_name: "Appleton")  # => [{:first_name=>"Dwight", :middle_name=>"Glenn", :last_name=>"Appleton"}, {:first_name=>"Dwight", :middle_name=>"Gerald", :last_name=>"Appleton"}]
+p matches1.include?(dwight1) && matches1.include?(dwight2) && !matches1.include?(autumn) && !matches1.include?(noah) # => true
+
+p matches2 = instance.find_match(first_name: "Dwight", middle_name: "Gerald", last_name: "Appleton")  # => [{:first_name=>"Dwight", :middle_name=>"Gerald", :last_name=>"Appleton"}]
+p matches2.include?(dwight2) && !matches2.include?(dwight1) && !matches2.include?(autumn) && !matches2.include?(noah) # => true
+
 p instance.find_match  # => []
 
 peeps = [
