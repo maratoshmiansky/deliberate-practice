@@ -6,8 +6,8 @@
 # First implementation (the long way)
 
 def sum_square_diff(upper = 100)
-  sum_of_squares = (1..upper).map { |num| num ** 2}.reduce(:+)
-  square_of_sum = ((1..upper).reduce(:+)) ** 2
+  sum_of_squares = (1..upper).map { |num| num ** 2}.sum
+  square_of_sum = (1..upper).sum ** 2
   (sum_of_squares - square_of_sum).abs  # return the absolute value of the difference
 end
 
@@ -34,18 +34,18 @@ require "prime"
 require "benchmark"
 
 p Prime.first(10001).last  # => 104743
-p Benchmark.measure { Prime.first(10001).last }  # .0017 seconds
+p Benchmark.measure { Prime.first(10001).last }  # .0016 seconds
 
 # OR
 
 p Prime.take(10001).last  # => 104743
-p Benchmark.measure { Prime.take(10001).last }  # .00017 seconds
+p Benchmark.measure { Prime.take(10001).last }  # .0016 seconds
 
 #3 The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
 # Find the sum of all the primes below two million.
 
 def sum_primes_below(upper)
-  (1..upper).select { |num| Prime.prime?(num) }.reduce(:+)
+  (1...upper).select { |num| Prime.prime?(num) }.sum  # exclude upper, as we want primes below upper
 end
 
 p sum_primes_below(200000)  # => 1709600813
@@ -53,7 +53,7 @@ p Benchmark.measure { sum_primes_below(200000) }  # .72 seconds
 # p sum_primes_below(2000000)  # => 142913828922
 # p Benchmark.measure { sum_primes_below(2000000) }  # nearly 15 seconds!
 
-# Prime.each works much, much faster:
+# Prime.each works MUCH faster:
 
 p Prime.each(200000).sum  # => 1709600813
 p Benchmark.measure { Prime.each(200000).sum}  # .0036 seconds(!)
