@@ -28,27 +28,38 @@ def factors(number)
   (1..number).map { |n| number / n if number % n == 0 }.compact.reverse  # return all factors of number as an array
 end
 
-def tri_with_factors(n)
-  return "please use a positive integer" if n < 1 or n.class != Integer
-  num = 1
-  tri_factors = [1]
-
-  while tri_factors.length <= n
-    tri = (1..num).sum  # numth triangular number
-    tri_factors = factors(tri)
-    # p "tri: #{tri}, tri_factors: #{tri_factors}"
-    num += 1 unless tri_factors.length > n
-  end
-
-  {n: n, tri: tri, num: num, tri_factors_length: tri_factors.length}
+def factors2(number)
+  (1..number).map do |n|
+    quot, rem = number.divmod(n)
+    quot if rem.zero?
+  end.compact.reverse  # return all factors of number as an array
 end
 
 require 'benchmark'
 
-p tri_with_factors(0)  # => "please use a positive integer"
-p tri_with_factors(-10)  # => "please use a positive integer"
-p tri_with_factors(3.14)  # => "please use a positive integer"
+p Benchmark.measure { p factors(1234567) }  # => .117 seconds
+p Benchmark.measure { p factors2(1234567) }  # => .204 seconds
 
-(1..20).each { |n| p tri_with_factors(n) }
+# def tri_with_factors(n)
+#   return "please use a positive integer" if n < 1 or n.class != Integer
+#   num = 1
+#   tri_factors = [1]
+
+#   while tri_factors.length <= n
+#     tri = (1..num).sum  # numth triangular number
+#     tri_factors = factors(tri)
+#     # p "tri: #{tri}, tri_factors: #{tri_factors}"
+#     num += 1 unless tri_factors.length > n
+#   end
+
+#   {n: n, tri: tri, num: num, tri_factors_length: tri_factors.length}
+# end
+
+# p tri_with_factors(0)  # => "please use a positive integer"
+# p tri_with_factors(-10)  # => "please use a positive integer"
+# p tri_with_factors(3.14)  # => "please use a positive integer"
+
+# (1..100).each { |n| p tri_with_factors(n) }
 
 # p Benchmark.measure { p tri_with_factors(150) }  # takes nearly 30 seconds to compute!
+
