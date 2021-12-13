@@ -67,13 +67,14 @@ require 'prime'
 
 # (1..100).each { |n| p Hash[n, Prime.prime_division(n)] }
 
-num = 198
+num = 36
 prime_factorization = Prime.prime_division(num)
 p prime_factorization
 factors = prime_factorization.map { [] }  # initialize output array with empty subarrays
 
 prime_factorization.each_with_index do |factor_subarray, index|
   i = 0
+  
   while i <= factor_subarray[1]
     factors[index] << factor_subarray[0] ** i
     p factors
@@ -81,11 +82,8 @@ prime_factorization.each_with_index do |factor_subarray, index|
   end
 end
 
-# if factors.length == 1
-#   factors = factors.flatten
-# else
-#   factors = factors.reduce(:product)
-# end
-
-p factors
-# p factors.reduce(&:product).map { |pair| pair.first * pair.last }.sort
+if factors.length == 1
+  p factors.flatten
+else
+  p factors[0].product(*factors[1..-1]).map { |factor_subarray| factor_subarray.reduce(:*) }.sort
+end
