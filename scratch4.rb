@@ -67,23 +67,48 @@ require 'prime'
 
 # (1..100).each { |n| p Hash[n, Prime.prime_division(n)] }
 
-num = 36
-prime_factorization = Prime.prime_division(num)
-p prime_factorization
-factors = prime_factorization.map { [] }  # initialize output array with empty subarrays
-
-prime_factorization.each_with_index do |factor_subarray, index|
-  i = 0
+def factors2(number)
+  return [1] if number == 1
+  prime_factorization = Prime.prime_division(number)
+  # p prime_factorization
+  factors = prime_factorization.map { [] }  # initialize output array with empty subarrays
   
-  while i <= factor_subarray[1]
-    factors[index] << factor_subarray[0] ** i
-    p factors
-    i += 1
+  prime_factorization.each_with_index do |factor_subarray, index|
+    i = 0
+  
+    while i <= factor_subarray[1]
+      factors[index] << factor_subarray[0] ** i
+      # p factors
+      i += 1
+    end
+  end
+  
+  if factors.length == 1
+    return factors.flatten
+  else
+    return factors[0].product(*factors[1..-1]).map { |factor_subarray| factor_subarray.reduce(:*) }.sort  # generate all factors by multiplying all combinations of factor subarrays
   end
 end
 
-if factors.length == 1
-  p factors.flatten
-else
-  p factors[0].product(*factors[1..-1]).map { |factor_subarray| factor_subarray.reduce(:*) }.sort
+# p Benchmark.measure { (2..1000).each { |n| p factors(n) } }  # .057 seconds
+# p Benchmark.measure { (2..1000).each { |n| p factors2(n) } }  # .01 seconds - better!
+
+def tri_with_factors2(n)
+  return "please use a positive integer" if n < 1 or n.class != Integer
+  num = 1
+  tri_factors = [1]
+
+  while tri_factors.length <= n
+    tri = (1..num).sum  # numth triangular number
+    tri_factors = factors2(tri)
+    # p "tri: #{tri}, tri_factors: #{tri_factors}"
+    num += 1 unless tri_factors.length > n
+  end
+
+  {n: n, tri: tri, num: num, tri_factors_length: tri_factors.length}
 end
+
+p Benchmark.measure { (1..100).each { |n| p tri_with_factors2(n) } }  # .165 seconds!
+
+p Benchmark.measure { p tri_with_factors2(150) }  # .021 seconds!!
+p Benchmark.measure { p tri_with_factors2(500) }  # .051 seconds!!!
