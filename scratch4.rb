@@ -69,22 +69,23 @@ require 'prime'
 
 def factors2(number)
   return [1] if number == 1
-  prime_factorization = Prime.prime_division(number)
+  prime_factorization = Prime.prime_division(number)  # get the prime factors with their exponents
   # p prime_factorization
   factors = prime_factorization.map { [] }  # initialize output array with empty subarrays
   
+  # iterate through prime_factorization array to populate output array with all factors multiplied out
   prime_factorization.each_with_index do |factor_subarray, index|
     i = 0
   
     while i <= factor_subarray[1]
-      factors[index] << factor_subarray[0] ** i
+      factors[index] << factor_subarray[0] ** i  # shovel powers of factors into each output subarray
       # p factors
       i += 1
     end
   end
   
   if factors.length == 1
-    return factors.flatten
+    return factors.flatten  # for 2 and all primes
   else
     return factors[0].product(*factors[1..-1]).map { |factor_subarray| factor_subarray.reduce(:*) }.sort  # generate all factors by multiplying all combinations of factor subarrays
   end
@@ -100,9 +101,9 @@ def tri_with_factors2(n)
 
   while tri_factors.length <= n
     tri = (1..num).sum  # numth triangular number
-    tri_factors = factors2(tri)
+    tri_factors = factors2(tri)  # get the factors of tri
     # p "tri: #{tri}, tri_factors: #{tri_factors}"
-    num += 1 unless tri_factors.length > n
+    num += 1 unless tri_factors.length > n  # stop incrementing num once the required # of factors (n) is exceeded
   end
 
   {n: n, tri: tri, num: num, tri_factors_length: tri_factors.length}
@@ -111,4 +112,4 @@ end
 p Benchmark.measure { (1..100).each { |n| p tri_with_factors2(n) } }  # .165 seconds!
 
 p Benchmark.measure { p tri_with_factors2(150) }  # .021 seconds!!
-p Benchmark.measure { p tri_with_factors2(500) }  # .051 seconds!!!
+p Benchmark.measure { p tri_with_factors2(500) }  # .51 seconds!!!
