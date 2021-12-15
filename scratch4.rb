@@ -135,7 +135,7 @@ p factorial(100).to_s.chars.map(&:to_i).sum
 
 p (2 ** 1000).to_s.chars.map(&:to_i).sum
 
-#  ~~~
+# ~~~
 
 # The series, 1^1 + 2^2 + 3^3 + ... + 10^10 = 10405071317.
 
@@ -146,3 +146,81 @@ def self_power_series(upper_limit)
 end
 
 p self_power_series(1000).to_s[-10..-1].to_i
+
+# ~~~
+
+# The Fibonacci sequence is defined by the recurrence relation:
+
+# F(n) = F(n - 1) + F(n - 2), where F(1) = 1 and F(2) = 1.
+
+# Hence the first 12 terms will be:
+
+# F(1) = 1
+# F(2) = 1
+# F(3) = 2
+# F(4) = 3
+# F(5) = 5
+# F(6) = 8
+# F(7) = 13
+# F(8) = 21
+# F(9) = 34
+# F(10) = 55
+# F(11) = 89
+# F(12) = 144
+
+# The 12th term, F(12), is the first term to contain three digits.
+
+# What is the index of the first term in the Fibonacci sequence to contain 1000 digits?
+
+# a recursive algorithm takes way too long to compute larger terms
+# def fib(num)
+#   return 1 if num == 2 || num == 1 # base case
+
+#   fib(num - 1) + fib(num - 2) # recursive call
+# end
+
+# def fib(term)
+#   return "try again" if term < 0 or term.class != Integer
+#   return 0 if term == 0
+#   return 1 if term == 1 || term == 2
+
+#   fib_terms = [0, 1, 1] # initialize array of Fibonacci terms (including 0 as the zeroth term, so term_index numbering makes sense)
+#   term_index = 3
+
+#   while term_index <= term
+#     fib_terms << fib_terms[term_index - 2] + fib_terms[term_index - 1]
+#     term_index += 1
+#   end
+
+#   fib_terms.last
+# end
+
+# (1..100).each { |n| p fib(n) }
+
+# p Benchmark.measure {
+#   index = 0
+
+#   while fib(index).to_s.length < 1000
+#     index += 1
+#   end
+
+#   p [index, fib(index)]
+# } # 2.837 seconds
+
+def fib_index(num_of_digits)
+  return "try again" if num_of_digits < 1 or num_of_digits.class != Integer
+  return [1, 1] if num_of_digits == 1
+
+  fib_terms = [0, 1, 1] # initialize array of Fibonacci terms (including 0 as the zeroth term, so term_index numbering makes sense)
+  term_index = 3
+
+  while fib_terms.last.to_s.length < num_of_digits
+    fib_terms << fib_terms[term_index - 2] + fib_terms[term_index - 1]
+    term_index += 1 unless fib_terms.last.to_s.length >= num_of_digits
+  end
+
+  [term_index, fib_terms.last] # return both the index and the Fibonacci term
+end
+
+# (1..100).each { |n| p fib_index(n) }
+p Benchmark.measure { p fib_index(1000) } # .0475 seconds
