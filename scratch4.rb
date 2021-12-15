@@ -111,3 +111,18 @@ p Benchmark.measure { (1..100).each { |n| p tri_with_factors2(n) } }  # .165 sec
 
 p Benchmark.measure { p tri_with_factors2(150) }  # .021 seconds!!
 p Benchmark.measure { p tri_with_factors2(500) }  # .51 seconds!!!
+
+# ~~~
+
+# n! means n * (n - 1) * ... * 3 * 2 * 1.
+
+# For example, 10! = 10 * 9 * ... * 3 * 2 * 1 = 3628800,
+# and the sum of the digits in the number 10! is 3 + 6 + 2 + 8 + 8 + 0 + 0 = 27.
+
+# Find the sum of the digits in the number 100!
+
+def factorial(number)
+  (1..number).reduce(:*)
+end
+
+p factorial(100).to_s.chars.map(&:to_i).sum
