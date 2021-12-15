@@ -126,3 +126,23 @@ def factorial(number)
 end
 
 p factorial(100).to_s.chars.map(&:to_i).sum
+
+# ~~~
+
+# 2^15 = 32768 and the sum of its digits is 3 + 2 + 7 + 6 + 8 = 26.
+
+# What is the sum of the digits of the number 2^1000?
+
+p (2 ** 1000).to_s.chars.map(&:to_i).sum
+
+#  ~~~
+
+# The series, 1^1 + 2^2 + 3^3 + ... + 10^10 = 10405071317.
+
+# Find the last ten digits of the series, 1^1 + 2^2 + 3^3 + ... + 1000^1000.
+
+def self_power_series(upper_limit)
+  (1..upper_limit).reduce { |sum, num| sum += num ** num }
+end
+
+p self_power_series(1000).to_s[-10..-1].to_i
