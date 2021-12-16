@@ -1,6 +1,6 @@
 # num = 36
 
-# p (1..num).map { |n| (1..n).sum }  # output all triangular numbers (i.e., all sums 1 + 2 + ... + n) up to num
+# p (1..num).map { |n| (1..n).sum } # output all triangular numbers (i.e., all sums 1 + 2 + ... + n) up to num
 
 # sum_to_num = (1..num).sum
 # p sum_to_num
@@ -25,20 +25,20 @@
 # What is the value of the first triangle number to have over five hundred divisors?
 
 def factors(number)
-  (1..number).map { |n| number / n if number % n == 0 }.compact.reverse  # return all factors of number as an array
+  (1..number).map { |n| number / n if number % n == 0 }.compact.reverse # return all factors of number as an array
 end
 
 # def factors2(number)
 #   (1..number).map do |n|
 #     quot, rem = number.divmod(n)
 #     quot if rem.zero?
-#   end.compact.reverse  # return all factors of number as an array
+#   end.compact.reverse # return all factors of number as an array
 # end
 
 require 'benchmark'
 
-# p Benchmark.measure { p factors(1234567) }  # => .117 seconds
-# p Benchmark.measure { p factors2(1234567) }  # => .204 seconds
+# p Benchmark.measure { p factors(1234567) } # => .117 seconds
+# p Benchmark.measure { p factors2(1234567) } # => .204 seconds
 
 def tri_with_factors(n)
   return "please use a positive integer" if n < 1 or n.class != Integer
@@ -46,7 +46,7 @@ def tri_with_factors(n)
   tri_factors = [1]
 
   while tri_factors.length <= n
-    tri = (1..num).sum  # numth triangular number
+    tri = (1..num).sum # numth triangular number
     tri_factors = factors(tri)
     # p "tri: #{tri}, tri_factors: #{tri_factors}"
     num += 1 unless tri_factors.length > n
@@ -55,13 +55,13 @@ def tri_with_factors(n)
   {n: n, tri: tri, num: num, tri_factors_length: tri_factors.length}
 end
 
-# p tri_with_factors(0)  # => "please use a positive integer"
-# p tri_with_factors(-10)  # => "please use a positive integer"
-# p tri_with_factors(3.14)  # => "please use a positive integer"
+# p tri_with_factors(0) # => "please use a positive integer"
+# p tri_with_factors(-10) # => "please use a positive integer"
+# p tri_with_factors(3.14) # => "please use a positive integer"
 
-# p Benchmark.measure { (1..100).each { |n| p tri_with_factors(n) } }  # 17.13 seconds - too long!
+# p Benchmark.measure { (1..100).each { |n| p tri_with_factors(n) } } # 17.13 seconds - too long!
 
-# p Benchmark.measure { p tri_with_factors(150) }  # takes nearly 30 seconds to compute!
+# p Benchmark.measure { p tri_with_factors(150) } # takes nearly 30 seconds to compute!
 
 require 'prime'
 
@@ -69,28 +69,28 @@ require 'prime'
 
 def factors2(number)
   return [1] if number == 1
-  prime_factorization = Prime.prime_division(number)  # get the prime factors with their exponents
-  factors = prime_factorization.map { [] }  # initialize output array with empty subarrays
+  prime_factorization = Prime.prime_division(number) # get the prime factors with their exponents
+  factors = prime_factorization.map { [] } # initialize output array with empty subarrays
   
   # iterate through prime_factorization array to populate output array with all factors multiplied out
   prime_factorization.each_with_index do |factor_subarray, index|
     exponent = 0
   
     while exponent <= factor_subarray[1]
-      factors[index] << factor_subarray[0] ** exponent  # shovel powers of factors into each output subarray
+      factors[index] << factor_subarray[0] ** exponent # shovel powers of factors into each output subarray
       exponent += 1
     end
   end
   
   if factors.length == 1
-    factors.flatten  # for 2 and all primes
+    factors.flatten # for 2 and all primes
   else
-    factors[0].product(*factors[1..-1]).map { |factor_subarray| factor_subarray.reduce(:*) }.sort  # generate all factors by multiplying all combinations of factor subarrays
+    factors[0].product(*factors[1..-1]).map { |factor_subarray| factor_subarray.reduce(:*) }.sort # generate all factors by multiplying all combinations of factor subarrays
   end
 end
 
-# p Benchmark.measure { (2..1000).each { |n| p factors(n) } }  # .057 seconds
-# p Benchmark.measure { (2..1000).each { |n| p factors2(n) } }  # .01 seconds - better!
+# p Benchmark.measure { (2..1000).each { |n| p factors(n) } } # .057 seconds
+# p Benchmark.measure { (2..1000).each { |n| p factors2(n) } } # .01 seconds - better!
 
 def tri_with_factors2(n)
   return "please use a positive integer" if n < 1 or n.class != Integer
@@ -98,19 +98,19 @@ def tri_with_factors2(n)
   tri_factors = [1]
 
   while tri_factors.length <= n
-    tri = (1..num).sum  # numth triangular number
-    tri_factors = factors2(tri)  # get the factors of tri
+    tri = (1..num).sum # numth triangular number
+    tri_factors = factors2(tri) # get the factors of tri
     # p "tri: #{tri}, tri_factors: #{tri_factors}"
-    num += 1 unless tri_factors.length > n  # stop incrementing num once the required # of factors (n) is exceeded
+    num += 1 unless tri_factors.length > n # stop incrementing num once the required # of factors (n) is exceeded
   end
 
   {n: n, tri: tri, num: num, tri_factors_length: tri_factors.length}
 end
 
-p Benchmark.measure { (1..100).each { |n| p tri_with_factors2(n) } }  # .165 seconds!
+p Benchmark.measure { (1..100).each { |n| p tri_with_factors2(n) } } # .165 seconds!
 
-p Benchmark.measure { p tri_with_factors2(150) }  # .021 seconds!!
-p Benchmark.measure { p tri_with_factors2(500) }  # .51 seconds!!!
+p Benchmark.measure { p tri_with_factors2(150) } # => {:n=>150, :tri=>749700, :num=>1224, :tri_factors_length=>162} (.021 seconds!!)
+p Benchmark.measure { p tri_with_factors2(500) } # => {:n=>500, :tri=>76576500, :num=>12375, :tri_factors_length=>576} (.51 seconds!!!)
 
 # ~~~
 
@@ -125,7 +125,7 @@ def factorial(number)
   (1..number).reduce(:*)
 end
 
-p factorial(100).to_s.chars.map(&:to_i).sum
+p factorial(100).to_s.chars.map(&:to_i).sum # => 648
 
 # ~~~
 
@@ -133,7 +133,7 @@ p factorial(100).to_s.chars.map(&:to_i).sum
 
 # What is the sum of the digits of the number 2^1000?
 
-p (2 ** 1000).to_s.chars.map(&:to_i).sum
+p (2 ** 1000).to_s.chars.map(&:to_i).sum # => 1366
 
 # ~~~
 
@@ -145,7 +145,7 @@ def self_power_series(upper_limit)
   (1..upper_limit).reduce { |sum, num| sum += num ** num }
 end
 
-p self_power_series(1000).to_s[-10..-1].to_i
+p self_power_series(1000).to_s[-10..-1].to_i # => 9110846700
 
 # ~~~
 
@@ -223,4 +223,4 @@ def fib_index(num_of_digits)
 end
 
 # (1..100).each { |n| p fib_index(n) }
-p Benchmark.measure { p fib_index(1000) } # .0475 seconds
+p Benchmark.measure { p fib_index(1000) } # term_index = 4782 (.0475 seconds)
