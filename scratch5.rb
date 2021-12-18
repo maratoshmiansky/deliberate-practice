@@ -42,3 +42,31 @@ p (0..100).map { |n| fib(n) }.select { |n| n.prime? } # outputs array of prime F
 # p Benchmark.measure { fib2(200000) } # .522 seconds
 # p Benchmark.measure { fib2(300000) } # 1.127 seconds
 # p Benchmark.measure { fib2(400000) } # 1.928 seconds
+
+# ~~~
+
+# Given two arrays, determine whether one is a subset of the other. It is considered a subset if all the values in one array are contained within the other.
+
+# NOTE: You must accomplish this in O(n) time. This is also known as linear time.
+
+# Input: [1, 2, 3, 4, 5, 6], [6, 3, 2]
+# Output: true
+
+# Input: [1, 2, 3, 4, 5, 6], [6, 3, 7]
+# Output: false
+
+# assume that num_array2.length <= num_array1.length, that duplicate terms are ignored (as they would be in a set) and that [] is akin to the empty set
+def num_array_subset?(num_array1, num_array2)
+  num_array2.each { |num| return false unless num_array1.include?(num) }
+
+  true
+end
+
+p num_array_subset?([1, 2, 3, 4, 5, 6], [6, 3, 2]) # => true
+p num_array_subset?([1, 2, 3, 4, 5, 6], [6, 3, 7]) # => false
+p num_array_subset?([9, 1, 7, 3, 5], [1, 5, 3]) # => true
+p num_array_subset?([9, 1, 7, 3, 5], []) # => true
+p num_array_subset?([], []) # => true
+p num_array_subset?([7, 8, 9], []) # => true
+p num_array_subset?([1, 3, 2], [2, 2]) # => true
+p num_array_subset?([1, 3, 2], [2, 4]) # => false
