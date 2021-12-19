@@ -70,3 +70,20 @@ p num_array_subset?([], []) # => true
 p num_array_subset?([7, 8, 9], []) # => true
 p num_array_subset?([1, 3, 2], [2, 2]) # => true
 p num_array_subset?([1, 3, 2], [2, 4]) # => false
+
+# ~~~
+
+# A given array has one pair of duplicate values. Return the first duplicate value.
+
+# NOTE: You must accomplish this in O(n) time. This is also known as linear time.
+
+# Input: [5, 2, 9, 7, 2, 6]
+# Output: 2
+
+def return_duplicate(input_array)
+  input_array.each_with_object(Hash.new(0)) { |element, tally| tally[element] += 1 }.select { |_, value| value > 1}.keys.shift
+end
+
+p return_duplicate([5, 2, 9, 7, 2, 6]) # => 2
+p return_duplicate([1, 1, 2, 3]) # => 1
+p return_duplicate(%w(live laugh love laugh)) # => "laugh"
