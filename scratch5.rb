@@ -87,3 +87,22 @@ end
 p return_duplicate([5, 2, 9, 7, 2, 6]) # => 2
 p return_duplicate([1, 1, 2, 3]) # => 1
 p return_duplicate(%w(live laugh love laugh)) # => "laugh"
+
+# ~~~
+
+# A given string contains all the letters from the alphabet except for one. Return the missing letter.
+
+# NOTE: You must accomplish this in O(n) time. This is also known as linear time.
+
+# Input: “The quick brown box jumps over a lazy dog”
+# Output: “f”
+
+def missing_letters(input_string)
+  ("a".."z").reject { |letter| input_string.downcase.include?(letter) }.join # this works for multiple missing letters, too
+end
+
+p missing_letters("The quick brown box jumps over a lazy dog") # => "f"
+p missing_letters("The quick brown fox jumps over a lazy dog") # => ""
+p missing_letters("abcdefghjklmnopqrstuvwxyz") # => "i"
+p missing_letters("aeiou") # => "bcdfghjklmnpqrstvwxyz"
+p missing_letters("Which letters (from a to z) are missing from this sentence?") # => "bdjkpquvxy"
