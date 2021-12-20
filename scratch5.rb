@@ -135,3 +135,33 @@ p first_non_repeating_char("leetcode") # => 0
 p first_non_repeating_char("loveleetcode") # => 2
 p first_non_repeating_char("mmaarat") # => 4
 p first_non_repeating_char("mmaarraatt") # => -1
+
+# ~~~
+
+# This is the same exercise as Two Sum I, but you must now solve it in linear time.
+
+# Given an array of numbers, return a new array containing just two numbers (from the original array) that add up to the number 10. If there are no two numbers that add up to 10, return false.
+
+# Input: [2, 5, 3, 1, 0, 7, 11]
+# Output: [3, 7]
+
+# Input: [1, 2, 3, 4, 5]
+# Output: false (While 1, 2, 3, and 4 altogether add up to 10, we're seeking just one pair of numbers.)
+
+# NOTE: result is unpredictable if num_array contains more than one pair of numbers that add up to target
+def two_sum(num_array, target)
+  checked = {}
+
+  num_array.each_with_index do |num, index|
+    diff = target - num
+    return [num_array[checked[diff]], num_array[index]] if checked[diff]
+    checked[num] = index
+  end
+
+  return false # if no two numbers add up to target
+end
+
+p two_sum([2, 5, 3, 1, 0, 7, 11], 10) # => [3, 7]
+p two_sum([1, 2, 3, 4, 5], 10) # => false
+p two_sum([1, 19, 3, 17, 20, 0], 21) # => [1, 20]
+p two_sum([1, 0], 0) # => false
