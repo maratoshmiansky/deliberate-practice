@@ -81,7 +81,7 @@ p num_array_subset?([1, 3, 2], [2, 4]) # => false
 # Output: 2
 
 def return_duplicate(input_array)
-  input_array.each_with_object(Hash.new(0)) { |element, tally| tally[element] += 1 }.select { |_, value| value > 1}.keys.shift
+  input_array.each_with_object(Hash.new(0)) { |element, tally| tally[element] += 1 }.find { |_, value| value > 1}.first
 end
 
 p return_duplicate([5, 2, 9, 7, 2, 6]) # => 2
@@ -106,3 +106,29 @@ p missing_letters("The quick brown fox jumps over a lazy dog") # => ""
 p missing_letters("abcdefghjklmnopqrstuvwxyz") # => "i"
 p missing_letters("aeiou") # => "bcdfghjklmnpqrstvwxyz"
 p missing_letters("Which letters (from a to z) are missing from this sentence?") # => "bdjkpquvxy"
+
+# ~~~
+
+# Given a string, find the first non-repeating character in it and return its index. If it doesn't exist, return -1.
+
+# NOTE: You must accomplish this in O(n) time. This is also known as linear time.
+
+# Examples:
+
+# s = "leetcode"
+# return 0.
+# (The "l" is the first character that only appears once in the string, and appears at index 0.)
+
+# s = "loveleetcode",
+# return 2.
+# (The "l" and "o" are repeated, so the first non-repeating character is the "v", which is at index 2.)
+
+# Note: You may assume the string contain only lowercase letters.
+
+def first_non_repeating_char(input_string)
+  input_string.chars.each_with_object(Hash.new(0)) { |char, tally| tally[char] += 1}.find { |_, value| value == 1 }.first
+end
+
+p first_non_repeating_char("leetcode") # => "l"
+p first_non_repeating_char("loveleetcode") # => "v"
+p first_non_repeating_char("mmaarat") # => "r"
