@@ -123,12 +123,15 @@ p missing_letters("Which letters (from a to z) are missing from this sentence?")
 # return 2.
 # (The "l" and "o" are repeated, so the first non-repeating character is the "v", which is at index 2.)
 
-# Note: You may assume the string contain only lowercase letters.
+# Note: You may assume the string contains only lowercase letters.
 
 def first_non_repeating_char(input_string)
-  input_string.chars.each_with_object(Hash.new(0)) { |char, tally| tally[char] += 1}.find { |_, value| value == 1 }.first
+  input_tally = input_string.chars.each_with_object(Hash.new(0)) { |char, tally| tally[char] += 1}
+  first_non_repeat = input_tally.find { |_, value| value == 1 }
+  first_non_repeat ? input_string.index(first_non_repeat.first) : -1
 end
 
-p first_non_repeating_char("leetcode") # => "l"
-p first_non_repeating_char("loveleetcode") # => "v"
-p first_non_repeating_char("mmaarat") # => "r"
+p first_non_repeating_char("leetcode") # => 0
+p first_non_repeating_char("loveleetcode") # => 2
+p first_non_repeating_char("mmaarat") # => 4
+p first_non_repeating_char("mmaarraatt") # => -1
