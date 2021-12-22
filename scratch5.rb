@@ -154,8 +154,8 @@ def two_sum(num_array, target)
 
   num_array.each_with_index do |num, index|
     diff = target - num
-    return [num_array[checked[diff]], num_array[index]] if checked[diff] # return matching pair of numbers that add up to target if they exist
-    checked[num] = index
+    return [num_array[checked[diff]], num] if checked[diff] # return matching pair of numbers that add up to target if they exist
+    checked[num] = index # assign current index as value of hash key
   end
 
   return false # if no two numbers add up to target
