@@ -189,24 +189,21 @@ p two_sum([1, 0], 0) # => false
 # strs[i] consists of only lower-case English letters.
 
 def longest_common_prefix(strings)
-  return "" if strings.include?("") # no common prefix if input array contains an empty string, so we break out
+  return "" if strings.empty? || strings.include?("") # no common prefix if input array is empty or contains an empty string, so return ""
 
-  shortest_string_length = strings.min.length # we only need to match as many characters as the shortest string in the input array
   common_prefix = ""
   prefix_match = true
   char_index = 0 # to index through each string's characters
   
-  while char_index < shortest_string_length && prefix_match do
+  while char_index < strings.min.length && prefix_match # we only need to match as many characters as the shortest string in the input array
     index = 1 # to start the comparison with the second string
-    while index < strings.length && prefix_match do
-      if strings.first[char_index] != strings[index][char_index]
-        prefix_match = false # to break out of the loops
-      end
+    
+    while index < strings.length && prefix_match
+      prefix_match = false if strings.first[char_index] != strings[index][char_index] # to break out of the loops
       index += 1
     end
-    if prefix_match
-      common_prefix += strings.first[char_index] # if all strings in the input array matched at char_index, we have a common prefix
-    end
+
+    common_prefix += strings.first[char_index] if prefix_match # if all strings in the input array matched at char_index, we have a common prefix    
     char_index += 1
   end
 
@@ -216,3 +213,6 @@ end
 p longest_common_prefix(["flower", "flow", "flight"])  # => "fl"
 p longest_common_prefix(["dog", "racecar", "car"])  # => ""
 p longest_common_prefix(%w(three through thread))  # => "thr"
+p longest_common_prefix(%w(why why why))  # => "why"
+p longest_common_prefix([])  # => ""
+p longest_common_prefix(["any", "and", ""])  # => ""
