@@ -216,3 +216,29 @@ p longest_common_prefix(%w(three through thread))  # => "thr"
 p longest_common_prefix(%w(why why why))  # => "why"
 p longest_common_prefix([])  # => ""
 p longest_common_prefix(["any", "and", ""])  # => ""
+p longest_common_prefix(%w(marat maratical marathon))  # => "marat"
+p longest_common_prefix(["", "something", ""])  # => ""
+
+def longest_common_prefix2(strings)
+  return "" if strings.empty? || strings.include?("") # no common prefix if input array is empty or contains an empty string, so return ""
+  
+  first_string, other_strings = strings.first, strings[1..-1]
+
+  # iterate through each character of first string
+  first_string.each_char.with_index do |char, index|
+    for string in other_strings # check remaining strings after first string
+     return first_string[0...index] if string[index] != char # return prefix up to character mismatch
+    end
+  end
+
+  first_string # no character mismatch, so return entire first string
+end
+
+p longest_common_prefix2(["flower", "flow", "flight"])  # => "fl"
+p longest_common_prefix2(["dog", "racecar", "car"])  # => ""
+p longest_common_prefix2(%w(three through thread))  # => "thr"
+p longest_common_prefix2(%w(why why why))  # => "why"
+p longest_common_prefix2([])  # => ""
+p longest_common_prefix2(["any", "and", ""])  # => ""
+p longest_common_prefix2(%w(marat maratical marathon))  # => "marat"
+p longest_common_prefix2(["", "something", ""])  # => ""
